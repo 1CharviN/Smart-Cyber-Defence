@@ -12,12 +12,15 @@ const menu = [
   'Activity Logs',
 ]
 
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/+$/, '')
+const apiUrl = (path) => `${API_BASE_URL}${path}`
+
 const endpoints = {
-  summary: '/api/dashboard/summary',
-  detections: '/api/dashboard/detections?limit=500',
-  defences: '/api/dashboard/defences?limit=500',
-  investigations: '/api/investigations',
-  twin: '/api/twin/validations',
+  summary: apiUrl('/api/dashboard/summary'),
+  detections: apiUrl('/api/dashboard/detections?limit=500'),
+  defences: apiUrl('/api/dashboard/defences?limit=500'),
+  investigations: apiUrl('/api/investigations'),
+  twin: apiUrl('/api/twin/validations'),
 }
 
 function asItems(data) {
@@ -115,8 +118,8 @@ function App() {
     async function loadDashboard() {
       try {
         const [summaryResponse, flowsResponse] = await Promise.all([
-          fetch('/api/monitoring/summary'),
-          fetch('/api/monitoring/flows?limit=20'),
+          fetch(apiUrl('/api/monitoring/summary')),
+          fetch(apiUrl('/api/monitoring/flows?limit=20')),
         ])
         if (!summaryResponse.ok || !flowsResponse.ok) {
           throw new Error('Monitoring API request failed')
@@ -189,7 +192,7 @@ function App() {
     setTraceResult(null)
 
     try {
-      const response = await fetch(`/api/traceback/${encodeURIComponent(ip)}`)
+      const response = await fetch(apiUrl(`/api/traceback/${encodeURIComponent(ip)}`))
       const data = await response.json()
       if (!response.ok) throw new Error(data.detail || `Traceback returned HTTP ${response.status}`)
       setTraceResult(data)
