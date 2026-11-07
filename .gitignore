@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+
+# Machine learning artifacts
+*.pkl
+*.joblib
+
+# Logs
+*.log
+
+# Node
+node_modules/
+
+# Build files
+dist/
+build/
+
+# MongoDB/local data
+data/
+
+# CICIDS2017 dataset
+ml/dataset/raw/
+# Deployment exclusions
+ml/dataset/
+.venv*/
+venv/
+env/
+node_modules/
+__pycache__/
+*.py[cod]
+.DS_Store
+._*
+*.log
+
+# Local generated data (preserve existing local copies)
+
+!ml/models/
+!ml/models/*.joblib
+
+# Runtime logs and process files
+*.jsonl
+*.pid
+
+# Backup and temporary source files
+*.bak
+*.backup
+*.before-*
+*.url-backup
+*.working-backup
+*.multi-page
+
+# macOS metadata
+._*
+
+# Additional backup files
+*_backup.py
+*.backup-*
+*.before-*
