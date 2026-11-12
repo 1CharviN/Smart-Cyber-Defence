@@ -1,197 +1,247 @@
-Autonomous Cyber Defence with Digital Twin
+# Autonomous Cyber Defence with Digital Twin
 
-An AI-assisted cybersecurity prototype that monitors network traffic, detects
-suspicious activity, recommends defensive actions, and records investigation
-and Digital Twin validation results.
+An AI-assisted cybersecurity project that monitors network traffic, detects suspicious activity, and helps identify suitable defensive actions. It also brings together IP traceback information, a virtual network test environment, and a web-based dashboard to make the detection and investigation process easier to understand.
 
-The project brings together machine learning, network monitoring, automated
-response logic, traceback information, and a web-based dashboard in one system.
-1. What does this project do?
+The main idea behind this project is to explore how machine learning and network security technologies can work together to support faster threat detection and response.
 
-The system is organised into five main modules:
+## 1. What does the project do?
 
-1. Network Monitoring and Traffic Collection – collects and processes
-   available network-flow information.
-2. AI-Based Traffic Analysis and Attack Detection – uses machine learning
-   to classify traffic and identify suspicious behaviour.
-3. Autonomous Defence and Response – selects a recommended response based
-   on the detection result.
-4. AIORI Traceback and Digital Twin Validation – provides contextual
-   information about suspicious IP addresses and supports validation using a
-   virtual network test environment.
-5. Security Dashboard and Data Management – presents detection results,
-   defence records, investigations, and validation information.
+The system is divided into five main modules, with each module handling a different part of the cybersecurity process.
 
-2. Technology used
+1. **Network Monitoring and Traffic Collection** – Collects and processes available network-flow information for analysis.
+2. **AI-Based Traffic Analysis and Attack Detection** – Uses machine-learning models to classify network traffic and identify unusual activity.
+3. **Autonomous Defence and Response** – Evaluates detection results and recommends an appropriate defensive action.
+4. **AIORI Traceback and Digital Twin Validation** – Provides additional information about suspicious IP addresses and supports testing through a virtual network environment.
+5. **Security Dashboard and Data Management** – Displays detection results, defence records, investigation details, and Digital Twin validation information.
 
-Area				Technologies
---------------------------------------------------------------------------------
-Backend  			Python, FastAPI 
-Frontend 			React, Vite, JavaScript 
-Machine Learning		Scikit-learn, Random Forest, Isolation Forest
-Network Monitoring		Scapy
-Digital Twin Testbed 		Mininet 
-Data and Model Handling 	Pandas, NumPy, Joblib 
-Network Defence Integration 	iptables (prototype integration) 
-Visualisation 			React dashboard, Chart.js (where configured) 
+Together, these modules demonstrate how different cybersecurity functions can be brought into one application.
+
+## 2. Technologies used
+
+| Area | Technologies |
+|---|---|
+| Backend | Python, FastAPI |
+| Frontend | React, Vite, JavaScript |
+| Machine Learning | Scikit-learn, Random Forest, Isolation Forest |
+| Network Monitoring | Scapy |
+| Digital Twin Testbed | Mininet |
+| Data Processing | Pandas, NumPy |
+| Model Management | Joblib |
+| Defence Integration | iptables (prototype integration) |
+| Dashboard and Visualisation | React, Chart.js (where configured) |
 
 The machine-learning models are trained using the CICIDS2017 dataset.
 
-3. Project requirements
+## 3. Requirements
 
-Before running the project, install:
+Before setting up the project, make sure you have the following installed:
 
 - Ubuntu/Linux or another compatible development environment
 - Python 3.11
 - Node.js 20.19+ or 22.12+
 - npm
-- Git (optional, if cloning the repository)
+- Git (if you plan to clone the repository)
 
-The trained model files must be present:
+The trained model files should also be available in the project directory:
 
-- ml/models/random_forest.joblib
-- ml/models/isolation_forest.joblib
+- `ml/models/random_forest.joblib`
+- `ml/models/isolation_forest.joblib`
 
-4. Project structure
+## 4. Project structure
 
+The repository is organised into the following main folders:
+
+```text
 Smart-Cyber-Defence/
 │
-├── backend/             # FastAPI backend and application modules
-├── digital_twin/        # Mininet-based virtual network testbed
-├── docs/                # Project documentation
-├── frontend/            # React and Vite dashboard
+├── backend/              # FastAPI backend and application modules
+├── digital_twin/         # Mininet-based virtual network testbed
+├── docs/                 # Project documentation
+├── frontend/             # React and Vite dashboard
 ├── ml/
-│   ├── dataset/         # Dataset-related files
-│   ├── models/          # Trained machine-learning models
-│   ├── preprocessing/   # Data preparation scripts
-│   └── training/        # Model training scripts
-├── tests/               # Project tests
-├── requirements.txt     # Python dependencies
-└── README.md            # Project setup and usage guide
+│   ├── dataset/          # Dataset-related files
+│   ├── models/           # Trained machine-learning models
+│   ├── preprocessing/    # Data preparation scripts
+│   └── training/         # Model training scripts
+├── tests/                # Project tests
+├── requirements.txt      # Python dependencies
+└── README.md             # Project documentation
+```
 
-5. How to run the project locally
+## 5. Running the project locally
 
-Run the backend and frontend in two separate terminal windows.
-Step A: Set up the backend
-Open Terminal 1 and move into the project directory: cd Smart-Cyber-Defence
+The backend and frontend need to run in separate terminal windows.
 
-Create a Python virtual environment: python3.11 -m venv .venv
+### Step A: Start the backend
 
-Activate it: source .venv/bin/activate
+Open the first terminal and navigate to the project directory:
+
+```bash
+cd Smart-Cyber-Defence
+```
+
+Create a Python virtual environment:
+
+```bash
+python3.11 -m venv .venv
+```
+
+Activate the environment:
+
+```bash
+source .venv/bin/activate
+```
 
 Upgrade pip and install the required packages:
+
+```bash
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+```
 
-Start the backend server:
+Start the FastAPI server:
+
+```bash
 uvicorn backend.app.main:app --host 127.0.0.1 --port 8001 --reload
-Keep this terminal open while using the application.
+```
 
-Step B: Check the backend
-Open a browser and visit:
-- Backend: http://127.0.0.1:8001/
-- API health check: http://127.0.0.1:8001/api/health
-- Interactive API documentation: http://127.0.0.1:8001/docs
-The API documentation allows you to view and test the available backend endpoints.
-Step C: Set up the frontend
+Keep this terminal running while you use the application.
 
-Open Terminal 2.
-Move into the frontend directory: cd Smart-Cyber-Defence/frontend
+### Step B: Check the backend
 
-Install the frontend dependencies: npm install
+Once the backend has started, open a browser and visit:
 
-Start the development server: npm run dev
+- **Backend:** http://127.0.0.1:8001/
+- **Health check:** http://127.0.0.1:8001/api/health
+- **API documentation:** http://127.0.0.1:8001/docs
 
-Vite will display a local URL in the terminal, usually: http://localhost:5173/
+The interactive API documentation is useful for viewing the available endpoints and trying out API requests.
 
-Open the URL shown in your terminal to access the dashboard.
-Keep both backend and frontend terminals running while using the application.
+### Step C: Start the frontend
 
-6. Important API endpoints
+Open a second terminal and navigate to the frontend directory:
 
-Endpoint			  Purpose
---------------------------------------------------------------------------
-GET /api/health			  Check backend health
-GET /api/dashboard/summary	  Retrieve dashboard statistics
-GET /api/dashboard/detections	  Retrieve detection records
-GET /api/dashboard/defences	  Retrieve defence records
-GET /api/monitoring/summary	  Retrieve monitoring statistics
-GET /api/monitoring/flows	  Retrieve available network-flow records
-POST /api/detection/analyze	  Analyse a submitted network-flow record
-GET /api/traceback/{source_ip}	  Retrieve traceback information
-GET /api/investigations		  Retrieve investigation records
-POST /api/investigations	  Create an investigation record
-GET /api/twin/validations	  Retrieve Digital Twin validation records
-POST /api/twin/validations	  Create a validation record
+```bash
+cd Smart-Cyber-Defence/frontend
+```
 
-For request formats and response details, use the interactive API documentation
-at /docs.
+Install the frontend dependencies:
 
-7. Machine-learning detection
+```bash
+npm install
+```
 
-The project uses two machine-learning models:
-- Random Forest: predicts traffic categories such as NORMAL, DDOS,
-  BRUTE_FORCE, and PORT_SCAN.
-- Isolation Forest: provides supplementary anomaly detection. It identifies
-  unusual traffic patterns but does not independently identify the exact
-  attack category.
-The two models contribute different information to the detection process.
+Start the Vite development server:
 
-8. Defence and Digital Twin operation
+```bash
+npm run dev
+```
 
-The defence module evaluates detection results and selects an appropriate
-response, such as monitoring, rate limiting, or recommending an IP block.
+Vite will display a local address in the terminal, usually:
 
-Important: The current application uses dry-run defence mode. It records
-and displays proposed defensive actions but does not automatically execute
-firewall blocking in the deployed application.
+http://localhost:5173/
 
-The Digital Twin component uses a Mininet-based virtual network testbed for
-prototype validation. It is not a continuously synchronised replica of a
-production network.
-Mininet is an optional component and must be installed separately on a
-compatible Linux system before running the Digital Twin test scripts.
+Open the address shown in your terminal to access the dashboard.
 
-9. Data storage
+**Note:** Keep both terminals running while using the locally hosted application.
 
-The application maintains project records using its configured local storage
-and log files. Some records are generated when the application is used. Therefore, an
-initially empty dashboard does not necessarily indicate that the application
-has failed.
+## 6. Main API endpoints
 
-The deployed cloud service uses temporary local storage. Records may not
-survive a service restart or redeployment.
+The backend provides the following API endpoints:
 
-10. Online demo
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/health` | Checks backend health |
+| GET | `/api/dashboard/summary` | Retrieves dashboard statistics |
+| GET | `/api/dashboard/detections` | Retrieves detection records |
+| GET | `/api/dashboard/defences` | Retrieves defence records |
+| GET | `/api/monitoring/summary` | Retrieves monitoring statistics |
+| GET | `/api/monitoring/flows` | Retrieves available network-flow records |
+| POST | `/api/detection/analyze` | Analyses a submitted network-flow record |
+| GET | `/api/traceback/{source_ip}` | Retrieves traceback information |
+| GET | `/api/investigations` | Retrieves investigation records |
+| POST | `/api/investigations` | Creates an investigation record |
+| GET | `/api/twin/validations` | Retrieves Digital Twin validation records |
+| POST | `/api/twin/validations` | Creates a validation record |
 
-The project is also deployed online:
-- Dashboard: https://smart-cyber-defence.vercel.app
-- Backend API: https://smart-cyber-defence.onrender.com
-- API documentation: https://smart-cyber-defence.onrender.com/docs
-The cloud backend may take some time to respond after a period of inactivity
-because the hosting service can put the free instance to sleep.
+For request formats and response details, visit the interactive API documentation at `/docs`.
 
-11. Current prototype limitations
+## 7. Machine-learning based detection
 
-This project is a working cybersecurity prototype, and some capabilities
-depend on the environment in which it is executed.
+The project uses two machine-learning models to examine network traffic.
+
+**Random Forest**
+
+The Random Forest model predicts traffic categories such as:
+
+- `NORMAL`
+- `DDOS`
+- `BRUTE_FORCE`
+- `PORT_SCAN`
+
+It is used to classify traffic based on the features provided to the model.
+
+**Isolation Forest**
+
+The Isolation Forest model looks for unusual patterns in network traffic. It acts as an additional anomaly detector and helps identify traffic that may require further attention.
+
+It does not independently determine the exact category of an attack.
+
+Both models contribute different information to the detection process, allowing the application to consider both predicted traffic categories and unusual behaviour.
+
+## 8. Defence and Digital Twin
+
+After analysing traffic, the defence module evaluates the detection result and selects a suitable response. Depending on the result, the application may recommend actions such as:
+
+- Monitoring the traffic
+- Applying a rate-limiting recommendation
+- Recommending that a suspicious IP address be blocked
+- Taking no action when the traffic is considered normal or protected
+
+**Current defence status:** The deployed application operates in dry-run mode. It records and displays proposed defensive actions, but does not automatically execute firewall blocking.
+
+The Digital Twin component uses a Mininet-based virtual network as a test environment for prototype validation. This allows selected network scenarios and connectivity behaviour to be examined in a controlled setup.
+
+It is important to note that this is a prototype testbed, not a continuously synchronised replica of a live production network.
+
+Mininet is an optional component and must be installed separately on a compatible Linux system before running the Digital Twin test scripts.
+
+## 9. Data storage
+
+The application maintains its records using the configured local storage and log files. Detection and defence records, along with other project information, may be generated as the application is used.
+
+Because some records are created during runtime, the dashboard may initially appear empty. This does not necessarily mean that the application has failed.
+
+The deployed cloud service uses temporary local storage. As a result, records may not remain available after a service restart or redeployment.
+
+## 10. Online demo
+
+The project is also available through the following deployed links:
+
+- **Dashboard:** https://smart-cyber-defence.vercel.app
+- **Backend API:** https://smart-cyber-defence.onrender.com
+- **API documentation:** https://smart-cyber-defence.onrender.com/docs
+
+The cloud backend may take a little time to respond if it has been inactive. This is because the hosting service may put its free instance to sleep.
+
+## 11. Current limitations
+
+This project is developed as an academic cybersecurity prototype. Some features depend on the environment and configuration in which the application is running.
+
+The current limitations include:
+
 - Continuous packet capture is not running on the cloud deployment.
-- Traffic from other computers is not automatically monitored unless a
-  suitable monitoring agent or sensor is configured.
-- Defensive actions in the deployed application are recorded in dry-run mode.
-- Digital Twin validation records do not necessarily mean that a Mininet
-  simulation was executed.
-- IP traceback provides contextual information about a possible source; it
-  does not establish the real-world identity of an attacker.
-- Machine-learning evaluation results should be interpreted in light of the
-  dataset and evaluation methodology described in the project report.
+- Traffic from other computers is not automatically monitored unless a suitable monitoring agent or network sensor is configured.
+- Defensive actions are recorded in dry-run mode rather than automatically applied through the deployed firewall integration.
+- IP traceback provides contextual information about a possible traffic source. It does not prove the real-world identity of an attacker.
+- Machine-learning results should be considered alongside the dataset, training process, and evaluation methodology described in the project report.
 
-12. Project purpose
+These limitations also provide opportunities for further development.
 
-The aim of this project is to demonstrate how machine learning, network
-monitoring, defensive decision-making, traceback context, and virtual network
-validation can be combined into an integrated cybersecurity prototype.
+## 12. Project purpose and future scope
 
-It is intended for academic demonstration, experimentation, and further
-development. It should not be treated as a replacement for a production
-firewall or a complete enterprise security solution.
+The purpose of this project is to demonstrate how machine learning, network monitoring, defensive decision-making, IP traceback information, and virtual network validation can be combined in a single cybersecurity application.
+
+The current implementation provides a foundation for further work, including improved live traffic integration, more reliable Digital Twin validation, stronger threat analysis, and controlled testing of automated defensive actions.
+
+This project is intended for academic demonstration, experimentation, and further development. It is not designed to replace a production firewall or a complete enterprise cybersecurity solution.
